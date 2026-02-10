@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>容霄的委託空間</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Import Zen Maru Gothic and Noto Sans TC */
+      @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Zen+Maru+Gothic:wght@400;500;700&display=swap');
+      
+      body {
+        /* Fallback to Noto Sans TC if Zen Maru Gothic is missing characters */
+        font-family: 'Zen Maru Gothic', 'Noto Sans TC', sans-serif;
+        background-color: #fbfaf8; /* 淺米色 */
+        color: #57534e; /* Stone 600 */
+      }
+      
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f5f5f4; 
+        border-radius: 5px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #d6d3d1; 
+        border-radius: 5px;
+        border: 2px solid #f5f5f4;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #a8a29e; 
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://esm.sh/@google/genai@^1.40.0",
+    "react-dom/client": "https://esm.sh/react-dom@^18.2.0/client",
+    "react-dom": "https://esm.sh/react-dom@^18.2.0",
+    "lucide-react": "https://esm.sh/lucide-react@^0.344.0",
+    "react": "https://esm.sh/react@^18.2.0",
+    "react/jsx-runtime": "https://esm.sh/react@^18.2.0/jsx-runtime",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react/": "https://esm.sh/react@^19.2.4/"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="./index.tsx"></script>
+  </body>
+</html>

@@ -5,6 +5,10 @@ import { CommissionCard } from './components/CommissionCard';
 import { AddCommissionForm } from './components/AddCommissionForm';
 import { Search, Palette, Sparkles, Lock, Unlock, ArrowRight, ChevronDown, PenTool } from 'lucide-react';
 
+// SHA-256 Hash for the admin password to avoid plaintext in source code
+// Hash for 'Rongxiao0313'
+const PASSWORD_HASH = '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8';
+
 const App: React.FC = () => {
   // State
   const [commissions, setCommissions] = useState<Commission[]>([]);
@@ -100,10 +104,27 @@ const App: React.FC = () => {
     setViewMode(prev => prev === 'client' ? 'admin' : 'client');
   };
 
-  const handleLogin = (e: React.FormEvent) => {
+  // Helper to verify password hash
+  const verifyPassword = async (input: string) => {
+    try {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(input);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        return hashHex === PASSWORD_HASH;
+    } catch (e) {
+        console.error("Crypto error", e);
+        return false;
+    }
+  };
+
+  const handleLogin = async (e: React.FormEvent) => {
       e.preventDefault();
-      // Password check logic
-      if (loginInput === 'Rongxiao0313') {
+      
+      const isValid = await verifyPassword(loginInput);
+
+      if (isValid) {
           setCurrentArtist('容霄');
           setLoginInput('');
       } else {

@@ -5,8 +5,8 @@ import { AddCommissionForm } from './components/AddCommissionForm';
 import { fetchCommissions, createCommission, updateCommissionStatus, deleteCommission, syncLocalToCloud } from './services/commissionService';
 import { Search, Palette, Sparkles, Lock, Unlock, ArrowRight, PenTool, RefreshCw, UploadCloud } from 'lucide-react';
 
-// SHA-256 Hash for the admin password
-const PASSWORD_HASH = '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8';
+// SHA-256 Hash for "Rongxiao0313"
+const PASSWORD_HASH = '244c496a76adb9419bfa98d44756165986e1f9d4da6655ed73aa336a97a403f9';
 
 const App: React.FC = () => {
   // State
@@ -120,10 +120,11 @@ const App: React.FC = () => {
   const verifyPassword = async (input: string) => {
     try {
         const encoder = new TextEncoder();
-        const data = encoder.encode(input);
+        const data = encoder.encode(input.trim()); // Add trim to avoid space issues
         const hashBuffer = await crypto.subtle.digest('SHA-256', data);
         const hashArray = Array.from(new Uint8Array(hashBuffer));
         const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        
         return hashHex === PASSWORD_HASH;
     } catch (e) {
         console.error("Crypto error", e);
@@ -139,6 +140,7 @@ const App: React.FC = () => {
           setLoginInput('');
       } else {
           alert('密碼錯誤');
+          // Clear password field to let user retry easily
           setLoginInput('');
       }
   };
